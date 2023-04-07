@@ -8,7 +8,7 @@ import (
 	"log"
 )
 
-var db *gorm.DB
+var Db *gorm.DB
 
 type Model struct {
 	ID         int `gorm:"primary_key" json:"id"`
@@ -35,7 +35,7 @@ func init() {
 		host,
 		dbName)
 	fmt.Println(a)
-	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+	Db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		user,
 		password,
 		host,
@@ -48,11 +48,11 @@ func init() {
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		return tablePrefix + defaultTableName
 	}
-	db.SingularTable(true)
-	db.DB().SetMaxIdleConns(10)
-	db.DB().SetMaxOpenConns(100)
+	Db.SingularTable(true)
+	Db.DB().SetMaxIdleConns(10)
+	Db.DB().SetMaxOpenConns(100)
 }
 
 func CloseDb() {
-	defer db.Close()
+	defer Db.Close()
 }
