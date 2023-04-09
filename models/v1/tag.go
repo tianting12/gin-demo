@@ -1,6 +1,8 @@
 package v1
 
-import "gin-demo/models"
+import (
+	"gin-demo/models"
+)
 
 func GetTags(pageNum int, pageSize int, maps interface{}) (tags []models.Tag) {
 	models.Db.Where(maps).Offset(pageNum).Limit(pageSize).Find(&tags)
@@ -30,7 +32,7 @@ func AddTag(name string, state int, createdBy string) bool {
 	return true
 }
 
-func ExistTagByID(id int, name string, modifiedBy string) bool {
+func ExistTagByID(id int) bool {
 	var tag models.Tag
 	models.Db.Select("id").Where("id=?", id).First(&tag)
 	if tag.ID > 0 {
