@@ -35,7 +35,7 @@ func GetArticles(pageNum int, pageSize int, maps interface{}) (articles []models
 }
 
 func GetArticlesTotal(maps interface{}) (count int) {
-	models.Db.Model(&models.Tag{}).Where(maps).Count(&count)
+	models.Db.Model(&models.Article{}).Where(maps).Count(&count)
 	return
 }
 
